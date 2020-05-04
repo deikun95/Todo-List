@@ -2,7 +2,7 @@
   <div>
     <div class="todo-container">
       <div class="card">
-        <v-card class="mx-auto todo-card" width="450" outlined>
+        <v-card class="mx-auto todo-card" width="500" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="card__header">
@@ -34,9 +34,33 @@
 
               <div class="card__footer">
                 <v-card-actions>
-                  <v-btn class="mx-2" fab dark color="#1E88E5">
-                    <v-icon dark>mdi-plus</v-icon>
-                  </v-btn>
+                  <div class="text-center">
+                    <v-dialog v-model="dialog" width="500">
+                      <template v-slot:activator="{ on }">
+                        <v-btn class="mx-2" fab dark color="#1E88E5" v-on="on">
+                          <v-icon dark>mdi-plus</v-icon>
+                        </v-btn>
+                      </template>
+
+                      <v-card>
+                        <v-card-title class="headline grey lighten-2" primary-title>Добавить задачу:</v-card-title>
+
+                        <v-card-text>
+                          <div>
+                            <v-text-field label="Название" :rules="rules" hide-details="auto"></v-text-field>
+                            <v-text-field label="Описание"></v-text-field>
+                          </div>
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="#1E88E5" text @click="dialog = false">Ok</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
                 </v-card-actions>
               </div>
             </v-list-item-content>
@@ -49,7 +73,16 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      dialog: false
+    };
+  }
+};
+const app = document.createElement("div");
+app.setAttribute("data-app", true);
+document.body.append(app);
 </script>
 
 <style lang = "scss">
@@ -80,13 +113,14 @@ body {
 }
 .card {
   &__header {
-    height: 45px;
+    height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-bottom: 2px solid #e3f2fd;
     &-logo {
       padding-bottom: 7px;
+      padding-right: 50px;
     }
     &-title {
       font-style: bold;
@@ -95,12 +129,17 @@ body {
     }
   }
   &__item {
+    background-color: #e3f2fd;
     margin-bottom: 40px;
+    padding: 15px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
     &:first-child {
       margin-top: 40px;
     }
     &-title {
       padding-bottom: 10px;
+      font-size: 10px;
     }
   }
   &__footer {
@@ -113,5 +152,8 @@ body {
 }
 .theme--light.v-tabs > .v-tabs-bar {
   background-color: transparent !important;
+}
+.v-list-item__content {
+  padding: 25px 25px 0 !important;
 }
 </style>

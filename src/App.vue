@@ -2,36 +2,108 @@
   <div>
     <div class="todo-container">
       <div class="card">
-        <v-card class="mx-auto todo-card" width="500" outlined>
+        <v-card class="mx-auto todo-card" width="600" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="card__header">
                 <div class="overline mb-4 card__header-logo">
                   <p class="card__header-title">myToDO</p>
                 </div>
-                <v-tabs>
+                <v-tabs color="#1e88e5">
                   <v-tab>Активные</v-tab>
                   <v-tab>Выполненные</v-tab>
                 </v-tabs>
               </div>
 
-              <div class="card__body">
+              <div class="card__body active-list">
                 <div class="card__item">
-                  <v-list-item-title class="headline mb-2 card__item-title">Отреставрировать москвич</v-list-item-title>
-                  <v-list-item-subtitle class="card__item-subtitle">Купить краску и замутить ремонт</v-list-item-subtitle>
+                  <div class="card__item-text">
+                    <v-list-item-title class="headline mb-2 card__item-title">Таска 1</v-list-item-title>
+                    <v-list-item-subtitle class="card__item-subtitle">Описание 1</v-list-item-subtitle>
+                  </div>
+                  <div class="card__item-btn">
+                    <v-btn icon color="#1e88e5">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#ef5081">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#4CAF50">
+                      <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
                 <div class="card__item">
-                  <v-list-item-title class="headline mb-2 card__item-title">Доделать диплом</v-list-item-title>
-                  <v-list-item-subtitle class="card__item-subtitle">Сделать презентацию и оформление</v-list-item-subtitle>
+                  <div class="card__item-text">
+                    <v-list-item-title class="headline mb-2 card__item-title">Таска 2</v-list-item-title>
+                    <v-list-item-subtitle class="card__item-subtitle">Описание 2</v-list-item-subtitle>
+                  </div>
+                  <div class="card__item-btn">
+                    <v-btn icon color="#1e88e5">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#ef5081">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#4CAF50">
+                      <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
                 <div class="card__item">
-                  <v-list-item-title class="headline mb-2 card__item-title">Сходить на турнички</v-list-item-title>
-                  <v-list-item-subtitle
-                    class="card__item-subtitle"
-                  >Размяться и подтягиваться до посинения</v-list-item-subtitle>
+                  <div class="card__item-text">
+                    <v-list-item-title class="headline mb-2 card__item-title">Таска 3</v-list-item-title>
+                    <v-list-item-subtitle class="card__item-subtitle">Описание 3</v-list-item-subtitle>
+                  </div>
+                  <div class="card__item-btn">
+                    <v-btn icon color="#1e88e5">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#ef5081">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#4CAF50">
+                      <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </div>
-
+              <div class="card__body done-list">
+                <div class="card__item">
+                  <div class="card__item-text">
+                    <v-list-item-title class="headline mb-2 card__item-title">Таска 1</v-list-item-title>
+                    <v-list-item-subtitle class="card__item-subtitle">Описание 1</v-list-item-subtitle>
+                  </div>
+                  <div class="card__item-btn">
+                    <v-btn icon color="#1e88e5">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#ef5081">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#4CAF50">
+                      <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
+                <div class="card__item">
+                  <div class="card__item-text">
+                    <v-list-item-title class="headline mb-2 card__item-title">Таска 2</v-list-item-title>
+                    <v-list-item-subtitle class="card__item-subtitle">Описание 2</v-list-item-subtitle>
+                  </div>
+                  <div class="card__item-btn">
+                    <v-btn icon color="#1e88e5">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#ef5081">
+                      <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                    <v-btn icon color="#4CAF50">
+                      <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
+              </div>
               <div class="card__footer">
                 <v-card-actions>
                   <div class="text-center">
@@ -96,7 +168,7 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: #e3f2fd;
+  background-image: linear-gradient(#fc6c48 0%, #ef5081 100%);
   font-family: Roboto, sans-serif;
 }
 .todo-container {
@@ -123,23 +195,37 @@ body {
       padding-right: 50px;
     }
     &-title {
-      font-style: bold;
+      /* font-weight: light; */
       font-size: 25px;
       color: #1e88e5;
     }
   }
   &__item {
-    background-color: #e3f2fd;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eeeeee;
     margin-bottom: 40px;
     padding: 15px;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); */
     border-radius: 4px;
+    overflow: hidden;
     &:first-child {
       margin-top: 40px;
     }
     &-title {
       padding-bottom: 10px;
-      font-size: 10px;
+      font-size: 20px;
+    }
+    &-btn {
+      /* opacity: 0; */
+      position: absolute;
+      right: -110px;
+      transition: 0.3s all;
+    }
+    &:hover > .card__item-btn {
+      right: 10px;
     }
   }
   &__footer {
@@ -149,6 +235,12 @@ body {
     border-top: 2px solid #e3f2fd;
     padding: 10px;
   }
+}
+.active-list {
+  display: block;
+}
+.done-list {
+  display: none;
 }
 .theme--light.v-tabs > .v-tabs-bar {
   background-color: transparent !important;

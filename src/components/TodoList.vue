@@ -12,7 +12,9 @@
               <v-tab>Выполненные</v-tab>
             </v-tabs>
           </div>
-          <TodoItem />
+          <!-- <div class="empty-card"><span v-if="!getTodos.length">daslk;</span>
+          </div> -->
+          <TodoItem v-for="todo in getTodos" :key="todo.id" :todo='todo' />
           <TodoInput />
         </v-list-item-content>
       </v-list-item>
@@ -21,56 +23,60 @@
 </template>
 
 <script>
-import TodoInput from "./TodoInput";
-import TodoItem from "./TodoItem";
-export default {
-  name: "TodoList",
-  components: {
-    TodoItem,
-    TodoInput
-  }
-};
+  import { mapGetters } from 'vuex';
+  import TodoInput from "./TodoInput";
+  import TodoItem from "./TodoItem";
+  export default {
+    name: "TodoList",
+    components: {
+      TodoItem,
+      TodoInput
+    },
+    computed: {
+      ...mapGetters(['getTodos']),
+    }
+  };
 </script>
 
 <style lang="scss">
-.todo-card {
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
-}
+  .todo-card {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+  }
 
-.card {
-  &__header {
-    height: 46px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid #e3f2fd;
+  .card {
+    &__header {
+      height: 46px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e3f2fd;
 
-    &-logo {
-      padding-bottom: 7px;
-      padding-right: 50px;
-    }
+      &-logo {
+        padding-bottom: 7px;
+        padding-right: 50px;
+      }
 
-    &-title {
-      font-size: 25px;
-      color: #1e88e5;
+      &-title {
+        font-size: 25px;
+        color: #1e88e5;
+      }
     }
   }
-}
 
-.active-list {
-  display: block;
-}
+  .active-list {
+    display: block;
+  }
 
-.done-list {
-  display: none;
-}
+  .done-list {
+    display: none;
+  }
 
-.theme--light.v-tabs > .v-tabs-bar {
-  background-color: transparent !important;
-}
+  .theme--light.v-tabs>.v-tabs-bar {
+    background-color: transparent !important;
+  }
 
-.v-list-item__content {
-  padding: 25px 25px 0 !important;
-}
+  .v-list-item__content {
+    padding: 25px 25px 0 !important;
+  }
 </style>

@@ -12,8 +12,9 @@
               <v-tab>Выполненные</v-tab>
             </v-tabs>
           </div>
-          <!-- <div class="empty-card"><span v-if="!getTodos.length">daslk;</span>
-          </div> -->
+          <div class="empty-item-list">
+            <p v-if="!getTodos.length">Ты свободен, Добби!</p>
+          </div>
           <TodoItem v-for="todo in getTodos" :key="todo.id" :todo='todo' />
           <TodoInput />
         </v-list-item-content>
@@ -79,4 +80,10 @@
   .v-list-item__content {
     padding: 25px 25px 0 !important;
   }
+
+  /* .empty-item-list {
+    width: 100%;
+    padding-top: 40px;
+    text-align: center;
+  } */
 </style>

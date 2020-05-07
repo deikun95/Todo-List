@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="card__body active-list">
-      <div class="card__item">
+      <div v-if="!todo.editing" class="card__item">
         <div class="card__item-text">
           <v-list-item-title class="headline mb-2 card__item-title">{{ todo.title }}</v-list-item-title>
-          <v-list-item-subtitle class="card__item-subtitle">{{ todo.desctiption }}</v-list-item-subtitle>
+          <v-list-item-subtitle class="card__item-subtitle">{{ todo.description }}</v-list-item-subtitle>
         </div>
         <div class="card__item-btn">
-          <v-btn icon color="#1e88e5">
+          <v-btn icon color="#1e88e5" @click="showEditHandler">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-btn icon color="#ef5081" @click="deleteHandler">
@@ -18,8 +18,22 @@
           </v-btn>
         </div>
       </div>
-
-      <div class="card__body done-list">
+      <div v-if="todo.editing" class="card__item edit">
+        <div class="card__item-text">
+          <v-list-item-title class="headline mb-2 card__item-title">
+            <input type="text" class="input-edit" v-model="todo.title" ref="input" />
+          </v-list-item-title>
+          <v-list-item-subtitle class="card__item-subtitle">
+            <input type="text" class="input-edit" v-model="todo.description" />
+          </v-list-item-subtitle>
+        </div>
+        <div class="card__item-btn">
+          <v-btn icon color="#4CAF50" @click="hideEditHandler">
+            <v-icon>mdi-checkbox-marked-circle</v-icon>
+          </v-btn>
+        </div>
+      </div>
+      <!-- <div class="card__body done-list">
         <div class="card__item">
           <div class="card__item-text">
             <v-list-item-title class="headline mb-2 card__item-title">Таска 1</v-list-item-title>
@@ -54,7 +68,7 @@
             </v-btn>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -70,9 +84,22 @@ export default {
   },
   name: "TodoItem",
   methods: {
-    ...mapActions(["setDeleteItem"]),
+    ...mapActions(["setDeleteItem", "setEditItem"]),
     deleteHandler() {
       this.setDeleteItem(this.todo.id);
+    },
+    showEditHandler() {
+      this.setEditItem({
+        ...this.todo,
+        editing: true
+      });
+      this.$nextTick(() => this.$refs.input.focus());
+    },
+    hideEditHandler() {
+      this.setEditItem({
+        ...this.todo,
+        editing: false
+      });
     }
   }
 };
@@ -86,9 +113,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     background-color: #eeeeee;
-    // margin-bottom: 40px;
     padding: 15px;
-    /* box-shadow: 0 0 2px rgba(0, 0, 0, 0.5); */
     border-radius: 4px;
     overflow: hidden;
 
@@ -112,12 +137,7 @@ export default {
     }
   }
 }
-
-.active-list {
-  display: block;
+.input-edit {
+  background-color: #fff;
 }
-
-.done-list {
-  display: none;
-}
-</style>
+</style>UIASD

@@ -9,21 +9,21 @@ export default new Vuex.Store({
       {
         id: 1,
         title: "Таска 1",
-        desctiption: "Описание таски 1",
+        description: "Описание таски 1",
         editing: false,
         done: false,
       },
       {
         id: 2,
         title: "Таска 2",
-        desctiption: "Описание таски 2",
+        description: "Описание таски 2",
         editing: false,
         done: false,
       },
       {
         id: 3,
         title: "Таска 3",
-        desctiption: "Описание таски 3",
+        description: "Описание таски 3",
         editing: false,
         done: false,
       },
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       state.todos.push({
         id: Date.now(),
         title: payload.title,
-        desctiption: payload.description,
+        description: payload.description,
         editing: false,
         done: false,
       });
@@ -47,6 +47,14 @@ export default new Vuex.Store({
     deleteTodo(state, id) {
       state.todos = state.todos.filter((todo) => todo.id !== id);
     },
+    editTodo(state, payload) {
+      state.todos = state.todos.map(todo => {
+        if (todo.id === payload.id && payload.title && payload.description) {
+          return payload
+        } 
+        return todo
+      })
+    }
   },
   actions: {
     setAddItem: ({ commit }, payload) => {
@@ -55,5 +63,8 @@ export default new Vuex.Store({
     setDeleteItem: ({ commit }, payload) => {
       commit("deleteTodo", payload);
     },
+    setEditItem: ({ commit }, payload) => {
+      commit("editTodo",payload)
+    }
   },
 });

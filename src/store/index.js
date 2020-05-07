@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    currentPage: "active",
     todos: [
       {
         id: 1,
@@ -27,10 +28,17 @@ export default new Vuex.Store({
         editing: false,
         done: false,
       },
+      
     ],
   },
   getters: {
     getTodos: (state) => {
+      if (state.currentPage === "active") {
+        return state.todos.filter((todo) => !todo.done);
+      }
+      if (state.currentPage === "done") {
+        return state.todos.filter((todo) => todo.done);
+      }
       return state.todos;
     },
   },
@@ -48,13 +56,25 @@ export default new Vuex.Store({
       state.todos = state.todos.filter((todo) => todo.id !== id);
     },
     editTodo(state, payload) {
-      state.todos = state.todos.map(todo => {
+      state.todos = state.todos.map((todo) => {
         if (todo.id === payload.id && payload.title && payload.description) {
-          return payload
-        } 
-        return todo
-      })
-    }
+          return payload;
+        }
+        return todo;
+      });
+    },
+    addCheck(state, payload) {
+      state.todos = state.todos.map((todo) => {
+        if (todo.id === payload.id) {
+          return payload;
+        }
+        return todo;
+      });
+    },
+    switchPage(state, payload) {
+      state.currentPage = payload;
+      console.log(payload);
+    },
   },
   actions: {
     setAddItem: ({ commit }, payload) => {
@@ -64,7 +84,13 @@ export default new Vuex.Store({
       commit("deleteTodo", payload);
     },
     setEditItem: ({ commit }, payload) => {
-      commit("editTodo",payload)
-    }
+      commit("editTodo", payload);
+    },
+    setCheckItem: ({ commit }, payload) => {
+      commit("addCheck", payload);
+    },
+    setCurrentPage: ({ commit }, payload) => {
+      commit("switchPage", payload.currentPage);
+    },
   },
 });

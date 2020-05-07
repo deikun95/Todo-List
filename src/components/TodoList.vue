@@ -8,14 +8,18 @@
               <p class="card__header-title">myToDO</p>
             </div>
             <v-tabs color="#1e88e5">
-              <v-tab>Активные</v-tab>
-              <v-tab>Выполненные</v-tab>
+              <v-tab @click="() => switchHandler('active')">Активные</v-tab>
+              <v-tab @click="() => switchHandler('done')">Выполненные</v-tab>
             </v-tabs>
           </div>
-          <div class="empty-item-list">
-            <p v-if="!getTodos.length">Ты свободен, Добби!</p>
+          <div class="card__inner">
+            <div v-if="!getTodos.length" class="empty-item-list">
+              <p>Ты свободен, Добби!</p>
+            </div>
+            <transition-group name="list">
+              <TodoItem v-for="todo in getTodos" :key="todo.id" :todo='todo' />
+            </transition-group>
           </div>
-          <TodoItem v-for="todo in getTodos" :key="todo.id" :todo='todo' />
           <TodoInput />
         </v-list-item-content>
       </v-list-item>
@@ -24,7 +28,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import TodoInput from "./TodoInput";
   import TodoItem from "./TodoItem";
   export default {
@@ -32,6 +36,13 @@
     components: {
       TodoItem,
       TodoInput
+    },
+    methods: {
+      ...mapActions(['setCurrentPage']),
+      switchHandler(currentPage) {
+        this.setCurrentPage({ currentPage })
+        console.log(this.$store.state)
+      }
     },
     computed: {
       ...mapGetters(['getTodos']),
@@ -46,6 +57,13 @@
   }
 
   .card {
+    &__inner {
+      height: 383px;
+      padding-bottom: 38px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
     &__header {
       height: 46px;
       display: flex;
@@ -65,12 +83,11 @@
     }
   }
 
-  .active-list {
-    display: block;
-  }
-
-  .done-list {
-    display: none;
+  .empty-item-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
 
   .theme--light.v-tabs>.v-tabs-bar {
@@ -81,9 +98,23 @@
     padding: 25px 25px 0 !important;
   }
 
-  /* .empty-item-list {
-    width: 100%;
-    padding-top: 40px;
-    text-align: center;
-  } */
+  .list-move {
+    transition: all .3s;
+  }
+
+  .list-enter-active {
+    transition: all .3s;
+  }
+
+  .list-leave-active {
+    position: absolute;
+    width: 75%;
+    top: 0;
+    left: 0;
+  }
+
+  .list-enter,
+  .list-leave-to {
+    opacity: 0
+  }
 </style>

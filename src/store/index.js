@@ -1,35 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     currentPage: "active",
-    todos: [
-      {
-        id: 1,
-        title: "Таска 1",
-        description: "Описание таски 1",
-        editing: false,
-        done: false,
-      },
-      {
-        id: 2,
-        title: "Таска 2",
-        description: "Описание таски 2",
-        editing: false,
-        done: false,
-      },
-      {
-        id: 3,
-        title: "Таска 3",
-        description: "Описание таски 3",
-        editing: false,
-        done: false,
-      },
-      
-    ],
+    todos: [],
   },
   getters: {
     getTodos: (state) => {
@@ -43,6 +21,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setTodos(state, payload) {
+      state.todos = payload;
+    },
     addTodo(state, payload) {
       state.todos.push({
         id: Date.now(),
@@ -77,8 +58,27 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    getTodosRequest: ({ commit }) => {
+      axios
+        .get("http://localhost:3000/api/todos")
+        .then((res) => {
+          commit("setTodos", res.data);
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
     setAddItem: ({ commit }, payload) => {
       commit("addTodo", payload);
+      axios
+        .post("http://localhost:3000/api/todo", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     setDeleteItem: ({ commit }, payload) => {
       commit("deleteTodo", payload);

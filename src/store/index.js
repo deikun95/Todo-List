@@ -82,12 +82,36 @@ export default new Vuex.Store({
     },
     setDeleteItem: ({ commit }, payload) => {
       commit("deleteTodo", payload);
+      axios
+        .delete(`http://localhost:3000/api/todo/${payload}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     setEditItem: ({ commit }, payload) => {
       commit("editTodo", payload);
+      axios
+        .put(`http://localhost:3000/api/todo`, payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     setCheckItem: ({ commit }, payload) => {
       commit("addCheck", payload);
+      axios
+        .put(`http://localhost:3000/api/todo`, payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     setCurrentPage: ({ commit }, payload) => {
       commit("switchPage", payload.currentPage);

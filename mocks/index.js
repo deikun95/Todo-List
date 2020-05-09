@@ -62,6 +62,24 @@ app.post("/api/todo", function(req, res) {
   res.send(newItem);
 });
 
+app.delete("/api/todo/:id", function(req, res) {
+  res.status(200);
+  todos = todos.filter((todo) => todo.id !== +req.params.id);
+  res.send("Got a delete request");
+});
+
+app.put("/api/todo", function(req, res) {
+  res.status(200);
+  todos = todos.map(todo => {
+    if (todo.id === req.body.id) {
+      return req.body
+    } 
+    return todo
+  } )
+  console.log(req.body.id)
+  res.send("Got a PUT request");
+});
+
 app.listen(3000, function() {
   console.log("Example app listening on port 3000!");
 });

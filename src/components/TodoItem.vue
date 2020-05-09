@@ -7,13 +7,13 @@
           <v-list-item-subtitle class="card__item-subtitle">{{ todo.description }}</v-list-item-subtitle>
         </div>
         <div class="card__item-btn">
-          <v-btn icon color="#1e88e5" @click="showEditHandler">
+          <v-btn v-if="!todo.done" icon color="#1e88e5" @click="showEditHandler">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-btn icon color="#ef5081" @click="deleteHandler">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
-          <v-btn icon color="#4CAF50" @click="checkHandler">
+          <v-btn v-if="!todo.done" icon color="#4CAF50" @click="checkHandler">
             <v-icon>mdi-check</v-icon>
           </v-btn>
         </div>
@@ -21,10 +21,10 @@
       <div v-if="todo.editing" class="card__item edit">
         <div class="card__item-text">
           <v-list-item-title class="headline mb-2 card__item-title">
-            <input type="text" class="input-edit" v-model="todo.title" ref="input" />
+            <input type="text" @keyup.enter="hideEditHandler" class="input-edit" v-model="todo.title" ref="input" />
           </v-list-item-title>
           <v-list-item-subtitle class="card__item-subtitle">
-            <input type="text" class="input-edit" v-model="todo.description" />
+            <input type="text" @keyup.enter="hideEditHandler" class="input-edit" v-model="todo.description" />
           </v-list-item-subtitle>
         </div>
         <div class="card__item-btn">

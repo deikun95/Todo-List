@@ -14,7 +14,7 @@
           </div>
           <div class="card__inner">
             <div v-if="!getTodos.length" class="empty-item-list">
-              <p>Ты свободен, Доббии!</p>
+              <p>Ты свободен, Добби!</p>
             </div>
             <transition-group name="list">
               <TodoItem v-for="todo in getTodos" :key="todo.id" :todo='todo' />

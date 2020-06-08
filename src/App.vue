@@ -30,6 +30,7 @@
     padding: 0;
   }
 
+
   html,
   body {
     width: 100%;
